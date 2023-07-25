@@ -1,5 +1,5 @@
 {
-  "name": "cybersource-rest-client",
+  "name": "@yc-commerce/cybersource-rest-client",
   "version": "0.0.48",
   "description": "Node.js SDK for the CyberSource REST API",
   "author": "developer@cybersource.com",
