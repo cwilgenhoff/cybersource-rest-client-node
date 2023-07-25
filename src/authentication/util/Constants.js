@@ -79,6 +79,7 @@ module.exports = {
     CLIENT_SECRET_EMPTY               :  "Client Secret is Empty/Null",
     ACCESS_TOKEN_EMPTY                :  "AccessToken is Empty/Null",
     REFRESH_TOKEN_EMPTY               :  "RefreshToken is Empty/Null",
+    PROXY_SUPPORT_TEMPORARY_DISABLED  :  "Proxy support has been temporarily disabled, please wait for the newest release of `superagent-proxy` which includes `proxy-agent@6.3.0`",
     /*Fall back default values*/
 
     DEFAULT_LOG_SIZE                  :  "10485760", //10 MB

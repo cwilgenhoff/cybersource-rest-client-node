@@ -1,0 +1,4 @@
+; docs: https://gitlab.yum.com/help/user/packages/npm_registry/index.md
+@yc-commerce:registry=https://gitlab.yum.com/api/v4/packages/npm/
+//gitlab.yum.com/api/v4/packages/npm/:_authToken=${CI_JOB_TOKEN}
+//gitlab.yum.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}

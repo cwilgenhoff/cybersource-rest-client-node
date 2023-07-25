@@ -16,18 +16,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['superagent', 'superagent-proxy', 'querystring', 'Authentication/MerchantConfig', 'Authentication/Logger', 'Authentication/Constants', 'Authentication/Authorization', 'Authentication/PayloadDigest'], factory);
+    define(['superagent', 'querystring', 'Authentication/MerchantConfig', 'Authentication/Logger', 'Authentication/Constants', 'Authentication/Authorization', 'Authentication/PayloadDigest'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('superagent'), require('superagent-proxy'), require('querystring'), require('./authentication/core/MerchantConfig'), require('./authentication/logging/Logger'), require('./authentication/util/Constants'), require('./authentication/core/Authorization'), require('./authentication/payloadDigest/DigestGenerator'));
+    module.exports = factory(require('superagent'), require('querystring'), require('./authentication/core/MerchantConfig'), require('./authentication/logging/Logger'), require('./authentication/util/Constants'), require('./authentication/core/Authorization'), require('./authentication/payloadDigest/DigestGenerator'));
   } else {
     // Browser globals (root is window)
     if (!root.CyberSource) {
       root.CyberSource = {};
     }
-    root.CyberSource.ApiClient = factory(root.superagent, root.superagent_proxy, root.querystring, root.Authentication.MerchantConfig, root.Authentication.Logger, root.Authentication.Constants, root.Authentication.Authorization, root.Authentication.PayloadDigest);
+    root.CyberSource.ApiClient = factory(root.superagent, root.querystring, root.Authentication.MerchantConfig, root.Authentication.Logger, root.Authentication.Constants, root.Authentication.Authorization, root.Authentication.PayloadDigest);
   }
-}(this, function(superagent, superagent_proxy, querystring, MerchantConfig, Logger, Constants, Authorization, PayloadDigest) {
+}(this, function(superagent, querystring, MerchantConfig, Logger, Constants, Authorization, PayloadDigest) {
   'use strict';
 
   /**
@@ -480,24 +480,12 @@
     var _this = this;
     var url = this.buildUrl(path, pathParams);
     var useProxy = this.merchantConfig.getUseProxy();
-    var proxyAddress = this.merchantConfig.getProxyAddress();
-    var proxyPort = this.merchantConfig.getProxyPort();
-    var proxyUser = this.merchantConfig.getProxyUser();
-    var proxyPassword = this.merchantConfig.getProxyPassword();
     var enableClientCert = this.merchantConfig.getEnableClientCert();
 
     var request = superagent(httpMethod, url);
 
-    if (useProxy && (proxyAddress != null && proxyAddress != '')) {
-      require('superagent-proxy')(require('superagent'));
-      var request = superagent(httpMethod, url);
-      if ((proxyUser != null && proxyUser != '') && (proxyPassword!= null && proxyPassword != '')) {
-        var proxy  = process.env.http_proxy || 'http://' + proxyUser + ':' + proxyPassword + '@' + proxyAddress + ':' + proxyPort; 
-      }
-      else {
-        var proxy  = process.env.http_proxy || 'http://' +  proxyAddress + ':' + proxyPort;
-      }
-      request.proxy(proxy); 
+    if (useProxy) {
+      return callback(new Error(Constants.PROXY_SUPPORT_TEMPORARY_DISABLED))
     }
 
     var fslib = require('fs');
