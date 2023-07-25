@@ -11,6 +11,13 @@
   "browser": {
     "fs": false
   },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.yum.com/yc-commerce/cybersource-rest-client-node.git"
+  },
+  "publishConfig": {
+    "@yc-commerce:registry": "https://gitlab.yum.com/api/v4/projects/11976/packages/npm/"
+  },
   "dependencies": {
     "app-root-path": "^2.1.0",
     "chai": "^4.1.2",
